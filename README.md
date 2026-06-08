@@ -21,8 +21,8 @@
 Tennis-Folio는 테니스 장비, 의류, 액세서리를 판매하는 종합 이커머스 플랫폼입니다.  
 팀 프로젝트로 진행되었으며, **MVC 아키텍처**를 기반으로 클라이언트와 서버가 RESTful API로 통신합니다.
 
-**프로젝트 기간:** 2024년 (팀 프로젝트)  
-**팀 규모:** 다인 팀 프로젝트
+**프로젝트 기간:** 10일 (팀 프로젝트)  
+**팀 규모:** 4인 팀 프로젝트
 
 ---
 
@@ -45,50 +45,6 @@ Tennis-Folio는 테니스 장비, 의류, 액세서리를 판매하는 종합 �
 | **Frontend** | React, Axios, useState/useEffect Hooks          |
 | **Backend**  | Node.js, Express.js, Controller-Repository 패턴 |
 | **Database** | MySQL (SQL 쿼리 최적화)                         |
-
-#### 💻 코드 예시
-
-**Frontend - Hot.jsx:**
-
-```jsx
-// Axios를 통한 데이터 페칭
-const fetchHotProducts = async () => {
-  try {
-    setLoading(true);
-    const response = await axios.get("/api/hot");
-    const data = Array.isArray(response.data) ? response.data : [];
-    setTennisHot(data);
-  } catch (error) {
-    setError("상품 데이터를 불러오지 못했습니다.");
-  } finally {
-    setLoading(false);
-  }
-};
-```
-
-**Backend - Repository/hot.js (SQL 통합 쿼리):**
-
-```javascript
-// Category ID를 통한 효율적인 데이터 조회
-export const getHotProducts = async () => {
-  const sql = `SELECT 
-                    id, 
-                    category_id AS categoryId, 
-                    img_url AS imgUrl, 
-                    shop,
-                    product AS name,
-                    price,
-                    dc,
-                    per,
-                    no_dc AS nodc
-                 FROM best_product 
-                 WHERE category_id = 8`;
-  const result = await pool.execute(sql, []);
-  return Array.isArray(result[0]) ? result[0] : [];
-};
-```
-
----
 
 ### 2️⃣ **장바구니 로직 (Shopping Cart)**
 
@@ -123,99 +79,6 @@ Database (MySQL)
 | **POST** | `/carts/delete` | 상품 삭제            |
 | **GET**  | `/carts/list`   | 장바구니 목록 조회   |
 
-#### 💻 코드 예시
-
-**Backend - Controller/carts.js (MVC 컨트롤러):**
-
-```javascript
-// 장바구니 추가: 중복 확인 후 수량 증가 또는 신규 추가
-export const addToCart = async (req, res) => {
-  const { pid, size, qty, userId } = req.body;
-
-  const cartItem = await repository.getCartItem({ pid, size, userId });
-  if (cartItem) {
-    // 이미 있는 상품이면 수량만 증가
-    await repository.updateCartQty({
-      cid: cartItem.cid,
-      qty,
-    });
-    return res.json({
-      message: "장바구니 수량이 증가되었습니다.",
-      type: "update",
-    });
-  }
-  // 없으면 새로 추가
-  const result = await repository.addCartItem({ pid, size, qty, userId });
-  res.json({
-    message: "장바구니에 추가되었습니다.",
-    type: "insert",
-    insertId: result.insertId,
-  });
-};
-
-// 수량 변경
-export const updateItems = async (req, res, next) => {
-  const { cid, qty } = req.body;
-  const result = await repository.getQtyUpdate(cid, qty);
-  res.json({ message: "장바구니 아이템 수량이 변경되었습니다." });
-};
-
-// 장바구니 아이템 삭제
-export const deleteItems = async (req, res) => {
-  const { cids } = req.body;
-  await repository.deleteCartItems(cids);
-  res.json({ message: "장바구니 아이템이 삭제되었습니다." });
-};
-```
-
-**Backend - Repository/carts.js (데이터베이스 쿼리):**
-
-```javascript
-// 수량 증감 (안전성: qty + ? > 0으로 음수 방지)
-export const getQtyUpdate = async (cid, qty) => {
-  const sql = `
-    UPDATE cart
-    SET qty = qty + ?
-    WHERE cid = ?
-      AND qty + ? > 0
-  `;
-  const [rows] = await pool.execute(sql, [qty, cid, qty]);
-  return rows;
-};
-
-// 다중 삭제 (동적 쿼리 구성)
-export const deleteCartItems = async (cids) => {
-  const sql = `
-    DELETE FROM cart
-    WHERE cid IN (${cids.map(() => "?").join(",")})
-  `;
-  const [rows] = await pool.execute(sql, cids);
-  return rows;
-};
-```
-
-**Frontend - Cart.jsx (React 상태 관리):**
-
-```jsx
-// 수량 변경 핸들러
-const handleUpdate = async (cid, qty) => {
-  await updateItems({ cid, qty });
-  setCartItems(
-    cartItems.map((item) =>
-      item.cid === cid ? { ...item, qty: item.qty + qty } : item,
-    ),
-  );
-};
-
-// 상품 삭제 핸들러
-const handleDelete = async (cid) => {
-  await deleteItems([cid]);
-  setCartItems(cartItems.filter((item) => item.cid !== cid));
-};
-```
-
----
-
 ### 3️⃣ **카카오페이 결제 API 연동**
 
 <sub>Frontend: React | Backend: Node.js/Express | External API: KakaoPay</sub>
@@ -238,132 +101,7 @@ const handleDelete = async (cid) => {
 | **Approve** | PG Token을 이용한 최종 승인   | 결제 정보, redirect               |
 | **Status**  | 결제 상태 조회                | `ready`, `approved`               |
 
-#### 💻 코드 예시
-
-**Backend - Controller/kakao.js (결제 로직):**
-
-```javascript
-// 1️⃣ Ready: 결제 준비 단계
-export const kakaoReady = async (req, res) => {
-  const { orderId, userId, itemName, quantity, totalAmount } = req.body;
-
-  try {
-    const readyURL = "https://open-api.kakaopay.com/online/v1/payment/ready";
-    const data = {
-      cid: "TC0ONETIME",
-      partner_order_id: orderId,
-      partner_user_id: userId,
-      item_name: itemName,
-      quantity,
-      total_amount: totalAmount,
-      tax_free_amount: 0,
-      approval_url: `https://[YOUR_DOMAIN]/kakao/approve?partner_order_id=${orderId}`,
-      cancel_url: "https://[YOUR_DOMAIN]/checkout/cancel",
-      fail_url: "https://[YOUR_DOMAIN]/checkout/fail",
-    };
-
-    const readyResponse = await axios.post(readyURL, data, {
-      headers: kakaoHeaders,
-    });
-    const { tid, next_redirect_mobile_url } = readyResponse.data;
-
-    // 추후 승인 단계에서 사용할 tid 저장
-    approvalData[orderId] = {
-      tid,
-      orderId,
-      userId,
-      status: "ready",
-    };
-
-    res.json({
-      tid,
-      next_redirect_mobile_url,
-    });
-  } catch (error) {
-    console.error(
-      "카카오페이 준비 실패:",
-      error.response?.data || error.message,
-    );
-    res.status(500).json({
-      error: "카카오페이 준비 실패",
-      detail: error.response?.data,
-    });
-  }
-};
-
-// 2️⃣ Approve: 결제 승인 단계
-export const kakaoApprove = async (req, res) => {
-  const { pg_token, partner_order_id } = req.query;
-  const saved = approvalData[partner_order_id];
-
-  if (!saved) {
-    return res.status(400).json({ error: "유효하지 않은 주문입니다." });
-  }
-
-  try {
-    const approveURL =
-      "https://open-api.kakaopay.com/online/v1/payment/approve";
-    const data = {
-      cid: "TC0ONETIME",
-      tid: saved.tid,
-      partner_order_id: saved.orderId,
-      partner_user_id: saved.userId,
-      pg_token,
-    };
-
-    const approveResponse = await axios.post(approveURL, data, {
-      headers: kakaoHeaders,
-    });
-
-    // 승인 데이터 저장 및 상태 업데이트
-    approvalData[partner_order_id] = {
-      ...saved,
-      status: "approved",
-      approvedAt: new Date().toISOString(),
-      approveData: approveResponse.data,
-    };
-
-    // 결제 성공 페이지로 리다이렉트
-    res.redirect("http://[YOUR_DOMAIN]/checkout/success");
-  } catch (error) {
-    console.error(
-      "카카오페이 승인 실패:",
-      error.response?.data || error.message,
-    );
-    res.status(500).json({
-      error: "카카오페이 승인 실패",
-      detail: error.response?.data,
-    });
-  }
-};
-
-// 3️⃣ Status: 결제 상태 조회
-export const kakaoStatus = (req, res) => {
-  const { orderId } = req.params;
-  const saved = approvalData[orderId];
-
-  if (!saved) {
-    return res.json({ status: "none" });
-  }
-
-  res.json({ status: saved.status });
-};
-```
-
-**Backend - Routes/kakao.js:**
-
-```javascript
-import express from "express";
-import * as controller from "../controller/kakao.js";
-
-const router = express.Router();
-
-router.post("/ready", controller.kakaoReady); // 결제 준비
-router.get("/approve", controller.kakaoApprove); // 결제 승인
-router.get("/status/:orderId", controller.kakaoStatus); // 상태 조회
-
-export default router;
-```
+#### (코드 예시는 생략)
 
 #### 🔑 주요 구현 특징
 
@@ -398,6 +136,57 @@ export default router;
 - **Vite** - 프론트엔드 번들러
 
 ---
+
+## ⚙️ 아키텍처 요약 및 실행 방법 (프론트엔드 + 서버 + DB)
+
+이 리포지토리는 주어진 프론트엔드 코드에 별도의 Express 서버와 MySQL 데이터베이스를 붙여 동작하도록 구성한 결과물입니다. 프론트엔드는 기존의 정적 코드에서 Axios 기반 비동기 요청으로 변경되어, 백엔드 API와 통신합니다.
+
+- **프론트엔드 폴더:** [tennisfolio-front](tennisfolio-front)
+- **백엔드 폴더:** [tennisfolio-server](tennisfolio-server)
+- **DB 덤프 파일:** [tennisfolio_dump.sql](tennisfolio_dump.sql), [tennisfolio_dump-2.sql](tennisfolio_dump-2.sql)
+- **DB 연결 설정 파일:** [tennisfolio-server/DB/connection.js](tennisfolio-server/DB/connection.js)
+
+핵심 포인트:
+
+- 프론트엔드는 `src/util/dataAxios.js`에서 `http://localhost:4000`을 기본 URL로 사용하는 헬퍼를 제공하여, 모든 백엔드 호출을 포워딩합니다.
+- Vite 개발 서버는 `/api` 경로를 프록시하도록 설정되어 있어 일부 API는 프록시를 통해 전달됩니다. 프록시 설정: [tennisfolio-front/vite.config.js](tennisfolio-front/vite.config.js)
+- 서버는 `tennisfolio-server/app.js`에서 여러 라우트를 마운트합니다 (예: `/carts`, `/login`, `/signup`, `/api/hot`, `/api/best`, `/kakao` 등).
+
+간단 실행 가이드
+
+1. MySQL 데이터베이스 준비
+
+```bash
+# (예시) 로컬 MySQL에 데이터베이스 생성 및 덤프 임포트
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS tennisfolio;"
+mysql -u root -p tennisfolio < tennisfolio_dump.sql
+```
+
+2. 백엔드 실행
+
+```bash
+cd tennisfolio-server
+npm install
+# 환경변수 파일(.env)에 DB_HOST, DB_USER, DB_PASSWORD, DB_NAME 등을 설정합니다.
+# 예: DB_HOST=localhost DB_USER=root DB_PASSWORD=yourpw DB_NAME=tennisfolio
+npm run start
+```
+
+3. 프론트엔드 실행
+
+```bash
+cd tennisfolio-front
+npm install
+npm run dev
+```
+
+주의사항 및 참고
+
+- DB 연결 정보는 [tennisfolio-server/DB/connection.js](tennisfolio-server/DB/connection.js)에서 환경변수를 통해 설정됩니다. 기본값으로 RDS 호스트와 기본 DB명을 사용하도록 되어 있으니 로컬에서 사용할 경우 `.env`에 값을 덮어쓰세요.
+- 프론트엔드의 Axios 호출 헬퍼는 [tennisfolio-front/src/util/dataAxios.js](tennisfolio-front/src/util/dataAxios.js)입니다. 이 헬퍼는 `http://localhost:4000`을 사용하므로, 백엔드가 다른 호스트/포트에 있다면 변경해야 합니다.
+- 서버는 CORS를 허용하도록 설정되어 있어, 프론트엔드가 직접 `http://localhost:4000`로 요청을 보내도 동작합니다.
+
+더 필요한 문서(예: 각 API 엔드포인트 상세 명세, DB 스키마 ERD)를 원하시면 알려주세요. 원하시면 README에 API 목록을 자동으로 생성해 추가하겠습니다.
 
 ## 📁 프로젝트 구조
 
@@ -558,6 +347,6 @@ ngrok http 5000
 
 ---
 
-**작성일:** 2024년  
+**작성일:** 2026년  
 **개발자:** Tennis-Folio 팀  
 **역할:** Hot Products 컴포넌트 개발 | 장바구니 로직 구현 | 카카오페이 API 연동
