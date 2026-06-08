@@ -4,7 +4,13 @@
 
 **테니스 관련 상품을 전문으로 판매하는 팀 기반 이커머스 플랫폼**
 
-[Project Overview](#-프로젝트-개요) • [주요 기능](#-주요-기능) • [기술 스택](#-기술-스택) • [구조](#-프로젝트-구조) • [설치 및 실행](#-설치-및-실행)
+<div>
+  <a href="#-프로젝트-개요" style="display:inline-block;margin:4px 6px;padding:10px 16px;border-radius:999px;background:#1db954;color:#fff;text-decoration:none;font-weight:600;font-size:0.96rem;">프로젝트 개요</a>
+  <a href="#-주요-기능" style="display:inline-block;margin:4px 6px;padding:10px 16px;border-radius:999px;background:#2196f3;color:#fff;text-decoration:none;font-weight:600;font-size:0.96rem;">주요 기능</a>
+  <a href="#-기술-스택" style="display:inline-block;margin:4px 6px;padding:10px 16px;border-radius:999px;background:#ff9800;color:#fff;text-decoration:none;font-weight:600;font-size:0.96rem;">기술 스택</a>
+  <a href="#-프로젝트-구조" style="display:inline-block;margin:4px 6px;padding:10px 16px;border-radius:999px;background:#9c27b0;color:#fff;text-decoration:none;font-weight:600;font-size:0.96rem;">구조</a>
+  <a href="#-설치-및-실행" style="display:inline-block;margin:4px 6px;padding:10px 16px;border-radius:999px;background:#e91e63;color:#fff;text-decoration:none;font-weight:600;font-size:0.96rem;">설치 및 실행</a>
+</div>
 
 </div>
 
