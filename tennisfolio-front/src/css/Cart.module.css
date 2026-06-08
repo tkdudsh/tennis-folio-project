@@ -1,0 +1,180 @@
+p{
+  margin:0;
+}
+
+.cartbox{
+  background:#fff;
+  border-radius: 10px;
+}
+
+.cartbox td{
+  padding:20px 0;
+}
+
+.imgbox{
+  width:13%;
+}
+
+.imgbox img{
+  width:100%;
+}
+
+.titlebox,.btnbox {
+  margin-left: 15px;
+}
+
+.product{
+  font-weight:600;
+}
+
+/*개수 버튼*/
+.btnbox{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  background:#f5f6f7;
+  border-radius: 10px;
+  padding:15px 10px 15px 15px;
+  margin-top: 15px;
+}
+
+.inputNum{
+  width:50px;
+  height:28px;
+  border-top:1px solid #D6D1EB;
+  border-bottom:1px solid #D6D1EB;
+  border-left:none;
+  border-right:none;
+  background:#fff;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.plus, .minus{
+  width:28px;
+  height:28px;
+  border:1px solid #D6D1EB;
+  background:#fff;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+/*가격 & 삭제*/
+.price{
+  display:flex;
+  align-items: center;
+}
+
+.priceWrap{
+  display:flex;
+  padding-right: 30px;
+}
+
+.total{
+  font-weight: 600;
+  font-family: 'Montserrat';
+  margin-right: 2px;
+}
+
+.won{
+  font-size: 15px;
+  margin-bottom: 1px;
+}
+
+.delete{
+  border:none;
+  background: none;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  color:#666;
+}
+
+/*총 상품금액*/
+.totalBoxMain{
+  display:flex;
+  justify-content: flex-end;
+  padding:5px 0 15px;
+}
+
+.totalBoxMain span{
+  font-size: 13px;
+}
+
+.totalBoxMain .bold{
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Montserrat';
+  margin: 0 2px 0 7px;
+}
+
+.totalBoxMain .highlight{
+  color:#5166BF;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Montserrat';
+  margin: 0 2px 0 7px;
+}
+
+/*왼쪽 - 총 결제*/
+.totalBox{
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 15px 20px 15px;
+  border:1px solid #000;
+}
+
+.order{
+  margin-top: 12px;
+  padding: 20px 0;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.order div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:8px 0;
+}
+
+.order p{
+  font-size: 14px;
+  color:#888;
+}
+
+.order span{
+  font-size: 15px;
+  font-weight: 500;
+  color:#444;
+}
+
+.totalPrice{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:15px 0 5px;
+}
+
+.totalPrice p{
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.totalPrice span{
+  font-size: 22px;
+  font-family: 'Montserrat';
+  font-weight: 700;
+}
+
+.buyBtn{
+  width:100%;
+  margin-top:20px;
+  padding:17px 0;
+  background:#5166bf;
+  transition: 0.4s;
+}
+
+.buyBtn:hover{
+  background:#000;
+}

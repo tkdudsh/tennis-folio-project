@@ -1,0 +1,8 @@
+김두용 - Schema, detail.jsx, BestPick.jsx
+사영노 - Cart.jsx, Hot.jsx
+이서진 - SignUp.jsx, Style.jsx
+정예원 - Login.jsx, CardList.jsx
+
+NavGroup.jsx - header - 해당 메뉴 위치로 이동 라우트
+
+except : Search.jsx / FooterBottom.jsx / FooterTop.jsx / 

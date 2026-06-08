@@ -1,0 +1,35 @@
+.categoryList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin: 60px 0 80px;
+  border: 0;
+}
+
+.categoryList .category {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.categoryList .category.active:focus {
+  border: 1px solid #007bff;
+  outline: none;
+}
+
+.categoryList .category.active .categoryName {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.categoryList .category.active .imgbox {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+.categoryList .category .imgbox {
+  transition: 0.2s ease;
+}

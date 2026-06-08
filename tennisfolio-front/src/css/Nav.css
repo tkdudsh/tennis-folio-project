@@ -1,0 +1,280 @@
+/*로그인창*/
+.modal-content{
+  width:400px;
+  border:none;
+}
+
+.modal-content img{
+  width:40%;
+  margin:0 auto;
+}
+
+.modal-header{
+  border:none;
+  padding: 50px 0 50px;
+}
+
+.modal-header button{
+  position:absolute;
+  right:0;
+  top:-40px;
+  background: none;
+  border:none;
+  color:#fff;
+  font-size: 24px;
+}
+
+.form-label{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-control{
+  margin-bottom: 15px;
+  height:40px;
+}
+
+.loginBtn{
+  width:100%;
+  margin-top: 15px;
+  height:40px;
+  background-color: #5166BF;
+}
+
+.loginBtn:hover{
+  background-color: #4254a8;
+}
+
+.sign{
+  margin: 30px 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.sign button{
+  font-size: 12px;
+  background:none;
+  border:none;
+  color:#888;
+}
+
+/*회원가입*/
+.stepbox {
+  margin-top: 15px;
+  margin-bottom: 40px;
+}
+
+.stepbox span {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Montserrat';
+  color: #5166BF;
+}
+
+.stepbox p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tit p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+.tit span {
+  color: #5166BF;
+  margin-left: 2px;
+}
+
+.tit .more {
+  color: #888;
+  border-bottom: 1px solid #888;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.agreebox button {
+  width: 100%;
+  margin: 10px 0 20px;
+  background: #A8A8A8;
+  border: none;
+  border-radius: 0px;
+  height: 45px;
+  transition: 0.2s;
+  color: #fff;
+  font-size: 15px;
+}
+
+.agreebox button.checked {
+  background-color: #5166BF;
+}
+
+.modal-dialog-centered {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.modal-header {
+  display: flex !important;
+  align-items: center;
+  position: relative;
+  padding: 20px !important;
+  border-bottom: 1px solid #eee !important;
+}
+
+.modal-title {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  color: #333;
+  margin-left: 30px; 
+}
+
+.modal-body {
+  padding: 30px 40px !important;
+}
+
+.modal-footer {
+  display: flex !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  border-top: none !important;
+  overflow: hidden;
+}
+
+.modal-footer button {
+  flex: 1 !important;
+  height: 65px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #f1f1f1 !important;
+  color: #666 !important;
+}
+
+.nextBtn {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+.nextBtn:hover {
+  background-color: #5166BF;
+}
+
+.signUp span {
+  color: #5166BF;
+  margin-left: 2px;
+}
+
+.pw {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.rule {
+  font-size: 10px;
+  position: absolute;
+  bottom: 16px;
+  color: #444;
+  left: 3px;
+}
+
+.signup-wrap {
+  max-width: 500px;
+  margin: 50px auto;
+}
+
+.signup-body {
+  padding: 20px;
+}
+
+/*메뉴창*/
+.offcanvas {
+  min-width: 1000px;
+  box-sizing: border-box;
+  padding: 4% 2% 5% 5%;
+}
+
+.offcanvas-header {
+  justify-content: end;
+}
+
+.btn-close {
+  color: #fff;
+}
+
+.offcanvas h3 {
+  font-size: 45px;
+  font-weight: 600;
+  font-family: 'Montserrat';
+  color: #fff;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 800px;
+}
+
+.Menu {
+  display: flex;
+  flex-flow: column wrap;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 10px;
+  transition: 0.3s;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.Menu p:hover,
+.Menu li ul li:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+.Menu .list {
+  display: flex;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.Menu p {
+  width: 150px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.3s;
+}
+
+
+.Menu li ul {
+  display: flex;
+  font-size: 19px;
+}
+
+.Menu li ul li {
+  padding: 0 20px;
+  transition: 0.3s;
+}
+
+.loginMenu{
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 16px;
+  padding-top: 30px;
+  color:#fff;
+}
+
+.loginMenu li{
+  padding-right: 40px;
+  color:rgba(255, 255, 255, 0.8);
+}

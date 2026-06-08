@@ -1,0 +1,22 @@
+구현 내용(장바구니)
+
+장바구니 추가, 중복된 상품 있을 때 수량증가, 로그인 기능 없이 구현하여 user_id 고정값 
+사용 중 
+
+
+구현해야할 내용.
+
+수량 +/-, 삭제 기능 추가.
+로그인 후 기능 동작 확인.
+
+
+오류나는 부분.
+hot_product에는 pid가 없어서 장바구니 추가시 오류 발생.
+
+
+수정한 파일
+tennisfolio-front
+==> Cart.jsx,Detail.jsx
+
+tennisfolio-server
+==>repository/carts.js, controller/carts.js
