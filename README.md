@@ -350,3 +350,17 @@ ngrok http 5000
 **작성일:** 2026년  
 **개발자:** Tennis-Folio 팀  
 **역할:** Hot Products 컴포넌트 개발 | 장바구니 로직 구현 | 카카오페이 API 연동
+
+## 📱 시연 스크린샷
+
+<p align="center">
+  <img src="imgs/01_home.png" width="220" alt="기억한 데이 사용자 정보 입력 화면" />
+  <img src="imgs/02_login.png" width="220" alt="기억한 데이 사용자 정보 입력 화면" />
+  <img src="imgs/03_store_hot.png" width="220" alt="연습 문제 화면" />
+  <img src="imgs/04_cart.png" width="220" alt="문장 따라 읽기 화면" />
+</p>
+
+<p align="center">
+  <img src="imgs/05_kakaopay.png" width="220" alt="이미지 판단하기 화면" />
+  <img src="imgs/06_complete.png" width="220" alt="검사 결과 요약 화면" />
+</p>
